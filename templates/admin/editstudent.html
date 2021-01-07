@@ -1,0 +1,23 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block page_title %}<a href="{% url 'managestudent' %}">Manage Student</a> | username : {{ username }}  | #id : {{ id }}
+{% endblock page_title %}
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card card-info">
+             <div class="card-header">
+             <h3 class="card-title">Edit Student</h3>
+             </div>
+             <!-- /.card-header -->
+             <!-- form start -->
+            {% url 'doeditstudent' as path %}
+            {% include 'admin/generalform.html' with messages=messages form=form action_path=path button_submit='Edit Student'%}
+            </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock main_content %}

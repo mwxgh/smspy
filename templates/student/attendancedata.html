@@ -1,0 +1,70 @@
+{% extends 'student/base.html' %}
+
+{% block custom_css %}
+<style>
+.col-md-2.attendance_div_red {
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #f44336;
+    border: 10px solid white;
+    text-align: center;
+    color: #fff;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.col-md-2.attendance_div_green {
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #388e3c;
+    border: 10px solid white;
+    text-align: center;
+    color: #fff;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+</style>
+{% endblock custom_css %}
+
+{% block page_title %}
+Attendance Data
+{% endblock page_title %}
+{% block main_content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                   <div class="card-header">
+                   <h3 class="card-title">Take Attendance</h3>
+                   </div>
+                   <div class="row">
+                    {% if attendance_reports %}
+                    {% for attendance_report in attendance_reports %}
+                       {% if attendance_report.status == True %}
+                        <div class="col-md-2 attendance_div_green">
+                            <b> {{ attendance_report.attendance_id.attendance_date }}</b>
+                            <br>
+                            <b> Present </b>
+                        </div>
+                        {% else %}
+                        <div class="col-md-2 attendance_div_red">
+                            <b> {{ attendance_report.attendance_id.attendance_date }}</b>
+                            <br>
+                            <b> Absent </b>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% else %}
+                        <div class="alert alert-danger text-center">No Attendance Data Found!</div>
+                     {% endif %}
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main_content %}

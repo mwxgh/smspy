@@ -1,0 +1,65 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block page_title %} Manage Student {% endblock page_title %}
+{% block main_content %}
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <!-- <div class="card-header">
+        <h3 class="card-title">Student Details</h3>
+
+        <div class="card-tools">
+          <div class="input-group input-group-sm" style="width: 150px;">
+            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+            <div class="input-group-append">
+              <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0" style="height: 500px;">
+        <table class="table table-head-fixed text-nowrap">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Username</th>
+              <th>Image</th>
+              <th>Email</th>
+              <th>Course</th>
+              <th>Session Year</th>
+              <th>Address</th>
+              <th>Manage</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for student in students %}
+            <tr>
+              <td>{{ student.admin.id }}</td>
+              <td>{{ student.admin.first_name }} {{ student.admin.last_name }}</td>
+              <td>{{ student.gender }}</td>
+              <td>{{ student.admin.username }}</td>
+              <td> <img src="{{ student.profile_pic }}" style="width:100px"></td>
+              <td>{{ student.admin.email }}</td>
+              <td>{{ student.course_id.name }}</td>
+              <td>{{ student.session_id.session_start}} to {{ student.session_id.session_end}}</td>
+              <td>{{ student.address }}</td>
+              <td><a href="{% url 'editstudent' id=student.admin.id %}" class="btn btn-warning">Edit</a>
+        
+              </td>
+            </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+
+{% endblock main_content %}

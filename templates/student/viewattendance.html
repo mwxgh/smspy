@@ -1,0 +1,61 @@
+{% extends 'student/base.html' %}
+{% block page_title %}
+View Attendance
+{% endblock page_title %}
+{% block main_content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                   <div class="card-header">
+                   <h3 class="card-title">Take Attendance</h3>
+                   </div>
+                   <form class="" action="{% url 'viewattendancepost' %}" method="post">
+                       {% csrf_token %}
+                       <div class="card-body">
+
+                       <div class="form-group">
+                       <label>Subject </label>
+                       <select class="form-control" name="subject" id="subjectid">
+                           {% for subject in subjects %}
+                              <option value="{{ subject.id }}">{{ subject.name }}</option>
+                           {% endfor %}
+                       </select>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-6">
+                               <div class="form-group">
+                               <label>Start Date</label>
+                                    <input type="date" name="startdate" value=""class="form-control" placeholder="Start Date" required>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="form-group">
+                               <label>End Date</label>
+                                    <input type="date" name="enddate" value=""class="form-control" placeholder="End Date" required>
+                               </div>
+                           </div>
+                       </div>
+
+
+                       </div>
+                       <div class="card-footer">
+                           <button type="submit" class="btn btn-primary btn-block" >Fetch Attendance</button>
+                       </div>
+                       <div id="student_data" class="card-footer">
+
+                       </div>
+                   </form>
+
+                   <!-- /.card-body -->
+
+
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main_content %}
+{% block custom_js %}
+{% endblock custom_js %}

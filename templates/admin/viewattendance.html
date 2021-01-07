@@ -1,0 +1,145 @@
+{% extends 'admin/base.html' %}
+{% block page_title %}
+View Attendance
+{% endblock page_title %}
+{% block main_content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-info">
+                   <div class="card-header">
+                   <h3 class="card-title">View Attendance</h3>
+                   </div>
+
+                   <div class="card-body">
+
+                   <div class="form-group">
+                   <label>Subject </label>
+                   <select class="form-control" name="subject" id="subjectid">
+                       {% for subject in subjects %}
+                          <option value="{{ subject.id }}">{{ subject.name }}</option>
+                       {% endfor %}
+                   </select>
+                   </div>
+                   <div class="form-group">
+                   <label>Session Year</label>
+                   <select class="form-control" name="session" id="sessionid">
+                       {% for session in sessions %}
+                          <option value="{{ session.id }}">{{ session.session_start }} to {{ session.session_end }}</option>
+                       {% endfor %}
+                   </select>
+                   </div>
+                   <div class="form-group">
+                       <button type="button" class="btn btn-primary btn-block" id="fetchattendance">Fetch Attendance</button>
+                   </div>
+                   <div class="form-group" id="attendance_block" style="display:none">
+                   <label>Attendance Date </label>
+                   <select class="form-control" name="attendance_date" id="attendance_date">
+
+                   </select>
+                   </div>
+                   <div class="form-group">
+                       <div class="alert alert-danger" id="error_attendance" style="display:none">
+                       </div>
+                   </div>
+                   <div class="form-group" id="fetchstudent_block" style="display:none">
+                       <button type="button" class="btn btn-primary btn-block" id="fetchstudent">Fetch Student Data</button>
+                   </div>
+                   </div>
+                   <!-- /.card-body -->
+
+
+                   <div id="student_data" class="card-footer">
+
+                   </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock main_content %}
+{% block custom_js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+
+        $("#fetchattendance").click(function(){
+            var subject=$("#subjectid").val();
+            var session=$("#sessionid").val();
+
+            $.ajax({
+                url:'{% url 'admingetattendance' %}',
+                type:'POST',
+                data:{subject:subject,session:session},
+            })
+            .done(function(response){
+                var json_data=JSON.parse(response);
+                if(json_data.length>0)
+                {
+                    var html_data="";
+                    for (key in json_data)
+                    {
+                        html_data+="<option value="+json_data[key]["id"]+">"+json_data[key]["attendance_date"]+"</option>";
+                    }
+                    $("#error_attendance").html("");
+                    $("#error_attendance").hide();
+                    $("#attendance_block").show();
+                    $("#fetchstudent_block").show();
+                    $("#attendance_date").html(html_data);
+                }
+                else
+                {
+                    $("#error_attendance").html("No Attendance Data Found");
+                    $("#error_attendance").show();
+                    $("#attendance_block").hide();
+                    $("#fetchstudent_block").hide();
+                    $("#attendance_date").html(html_data);
+                }
+            })
+            .fail(function(){
+                alert('Error in Fetching Attendance')
+                $("#error_attendance").html("");
+                $("#attendance_block").hide();
+                $("#fetchstudent_block").hide();
+            });
+
+        })
+        $("#fetchstudent").click(function(){
+            var attendance_date=$("#attendance_date").val()
+
+            $.ajax({
+                url:'{% url 'admingetstudentattendance' %}',
+                type:'POST',
+                data:{attendance_date:attendance_date},
+            })
+            .done(function(response){
+                var json_data=JSON.parse(response);
+                console.log(json_data)
+                    var div_data="<div class='form-group'> <label>Student Attendance : </label></div><div class='form-group'> <div class='row'>";
+                    for(key in json_data)
+                    {
+                        div_data+="<div class='col-md-3'>";
+                            div_data+="<label class='form-check-label'>"+ json_data[key] ['name']+"</label> ";
+                            if(json_data[key]['status'])
+                            {
+                                div_data+="<b> [ Present ] </b>";
+                            }
+                            else
+                            {
+                                div_data+="<b> [ Absent ] </b>";
+                            }
+                            div_data+=" </div> ";
+                    }
+                    div_data+="</div> </div>";
+
+                    $('#student_data').html(div_data);
+            })
+            .fail(function(){
+                alert('Error in Fetching Student')
+            })
+
+        })
+    })
+</script>
+{% endblock custom_js %}

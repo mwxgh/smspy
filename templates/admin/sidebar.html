@@ -1,0 +1,169 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4 ">
+
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="{% static 'dist/img/2.jpg' %}" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="{% url 'adminprofile' %}" class="d-block">{{ user.username }}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+
+
+        <li class="nav-item">
+            {% url 'addstaff' as addstaff %}
+          <a href="{{ addstaff }}" class="nav-link {% if request.path == addstaff %} active {% endif %}">
+            <i class="nav-icon fas fa-user-plus"></i>
+            <p>
+              Add Staff
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'managestaff' as managestaff %}
+            {% url 'editstaff' id=id as editstaff %}
+          <a href="{{ managestaff }}" class="nav-link {% if request.path == managestaff %} active {% endif %}{% if request.path == editstaff %} active {% endif %}">
+            <i class="nav-icon fas fa-user-circle"></i>
+            <p>
+                Manage Staff
+            </p>
+          </a>
+        </li>
+
+
+
+        <li class="nav-item">
+            {% url 'addcourse' as addcourse %}
+          <a href="{{ addcourse }}" class="nav-link {% if request.path == addcourse %} active {% endif %}">
+            <i class="nav-icon fas fa-plus"></i>
+            <p>
+              Add Course
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'managecourse' as managecourse %}
+            {% url 'editcourse' id=id as editcourse %}
+          <a href="{{ managecourse }}" class="nav-link {% if request.path == managecourse %} active {% endif %}{% if request.path == editcourse %} active {% endif %}">
+            <i class="nav-icon fas fa-book"></i>
+            <p>
+                Manage Course
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+            {% url 'addsubject' as addsubject %}
+          <a href="{{ addsubject }}" class="nav-link {% if request.path == addsubject %} active {% endif %}">
+            <i class="nav-icon fas fa-plus"></i>
+            <p>
+              Add Subject
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'managesubject' as managesubject %}
+            {% url 'editsubject' id=id as editsubject %}
+          <a href="{{ managesubject }}" class="nav-link {% if request.path == managesubject %} active {% endif %}{% if request.path == editsubject %} active {% endif %}">
+            <i class="nav-icon fas fa-book"></i>
+            <p>
+                Manage Subject
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'addsession' as addsession %}
+          <a href="{{ addsession }}" class="nav-link {% if request.path == addsession %} active {% endif %}">
+            <i class="nav-icon fas fa-plus"></i>
+            <p>
+                Add Session Year
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+            {% url 'addstudent'  as addstudent %}
+          <a href="{{ addstudent }}" class="nav-link {% if request.path == addstudent %} active {% endif %}">
+            <i class="nav-icon fas fa-user-plus"></i>
+            <p>
+              Add Student
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'managestudent' as managestudent %}
+            {% url 'editstudent' id=id as editstudent %}
+          <a href="{{ managestudent }}" class="nav-link {% if request.path == managestudent %} active {% endif %}{% if request.path == editstudent %} active {% endif %}">
+            <i class="nav-icon fas fa-user-circle"></i>
+            <p>
+                Manage Student
+            </p>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+            {% url 'adminviewattendance' as  adminviewattendance %}
+          <a href="{{ adminviewattendance }}" class="nav-link {% if request.path == adminviewattendance %} active {% endif %}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+                View Attendance
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'feedbackstaff' as  feedbackstaff %}
+          <a href="{{ feedbackstaff }}" class="nav-link {% if request.path == feedbackstaff %} active {% endif %}">
+            <i class="nav-icon fas fa-comments"></i>
+            <p>
+                Staff Feedback
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'feedbackstudent' as  feedbackstudent %}
+          <a href="{{ feedbackstudent }}" class="nav-link {% if request.path == feedbackstudent %} active {% endif %}">
+            <i class="nav-icon fas fa-comments"></i>
+            <p>
+                Student Feedback
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+            {% url 'staffleave' as  staffleave %}
+          <a href="{{ staffleave }}" class="nav-link {% if request.path == staffleave %} active {% endif %}">
+            <i class="nav-icon fas fa-chevron-circle-right"></i>
+            <p>
+                Staff Leave
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+            {% url 'studentleave' as  studentleave %}
+          <a href="{{ studentleave }}" class="nav-link {% if request.path == studentleave %} active {% endif %}">
+            <i class="nav-icon fas fa-chevron-circle-right"></i>
+            <p>
+                Student Leave
+            </p>
+          </a>
+        </li>
+
+
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
