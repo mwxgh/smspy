@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'smspy',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '01110100',
         'HOST': 'localhost',
         'PORT': '3306',
     }
