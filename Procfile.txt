@@ -1,0 +1,1 @@
+web: gunicorn smsprj.wsgi --log-file - 

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'e$8yoe8e=ta+*3ubx4dk@ek4v$t67mu9-sl!6d*ab$u2ozz2sf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["smspy.herokuapp.com"]
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WHiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,14 +81,14 @@ WSGI_APPLICATION = 'smsprj.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smspy',
-        'USER': 'root',
-        'PASSWORD': '01110100',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'smspy',
+        # 'USER': 'root',
+        # 'PASSWORD': '01110100',
+        # 'HOST': 'localhost',
+        # 'PORT': '3306',
     }
 }
 
@@ -147,3 +149,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mwx6996@gmail.com'
 EMAIL_HOST_PASSWORD = '01110100mvt'
 DEFAULT_FROM_EMAIL = 'Student management System <mwx6996@gmail.com>'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
