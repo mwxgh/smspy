@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import dj_database_url
+# import dj_database_url
 from pathlib import Path
 import os
 
@@ -27,7 +27,7 @@ SECRET_KEY = 'e$8yoe8e=ta+*3ubx4dk@ek4v$t67mu9-sl!6d*ab$u2ozz2sf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["smspy.herokuapp.com"]
+ALLOWED_HOSTS = ["smspy.herokuapp.com/", "127.0.0.1"]
 
 
 # Application definition
@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'smsapp',
-    # 'smsapp.apps.SmsappConfig',
+    # other way : 'smsapp.apps.SmsappConfig',
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WHiteNoiseMiddleware',
+    # 'whitenoise.middleware.WHiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -149,7 +149,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mwx6996@gmail.com'
 EMAIL_HOST_PASSWORD = '01110100mvt'
 DEFAULT_FROM_EMAIL = 'Student management System <mwx6996@gmail.com>'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-prod_db = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
